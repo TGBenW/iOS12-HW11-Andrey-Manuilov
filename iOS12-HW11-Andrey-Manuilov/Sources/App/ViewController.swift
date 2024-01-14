@@ -209,58 +209,79 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     private func setupLayout() {
         //top part positioning
-        labelLogin.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80).isActive = true
-        labelLogin.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        labelLogin.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(80)
+            make.centerX.equalToSuperview()
+        }
         
-        textFieldUsername.topAnchor.constraint(equalTo: labelLogin.bottomAnchor, constant: 60).isActive = true
-        textFieldUsername.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        textFieldUsername.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 40).isActive = true
-        textFieldUsername.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40).isActive = true
-        textFieldUsername.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        textFieldUsername.snp.makeConstraints { make in
+            make.top.equalTo(labelLogin.snp.bottom).offset(60)
+            make.centerX.equalToSuperview()
+            make.left.equalToSuperview().offset(40)
+            make.right.equalToSuperview().offset(-40)
+            make.height.equalTo(60)
+        }
 
-        textFieldPassword.topAnchor.constraint(equalTo: textFieldUsername.bottomAnchor, constant: 20).isActive = true
-        textFieldPassword.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        textFieldPassword.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 40).isActive = true
-        textFieldPassword.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40).isActive = true
-        textFieldPassword.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        textFieldPassword.snp.makeConstraints { make in
+            make.top.equalTo(textFieldUsername.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
+            make.left.equalToSuperview().offset(40)
+            make.right.equalToSuperview().offset(-40)
+            make.height.equalTo(60)
+        }
 
-        loginButton.topAnchor.constraint(equalTo: textFieldPassword.bottomAnchor, constant: 60).isActive = true
-        loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        loginButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 40).isActive = true
-        loginButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40).isActive = true
-        loginButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        loginButton.snp.makeConstraints { make in
+            make.top.equalTo(textFieldPassword.snp.bottom).offset(60)
+            make.centerX.equalToSuperview()
+            make.left.equalToSuperview().offset(40)
+            make.right.equalToSuperview().offset(-40)
+            make.height.equalTo(50)
+        }
 
-        forgotPasswordLink.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 30).isActive = true
-        forgotPasswordLink.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        forgotPasswordLink.snp.makeConstraints { make in
+            make.top.equalTo(loginButton.snp.bottom).offset(30)
+            make.centerX.equalToSuperview()
+        }
 
-        //bottom part positioning
-        separatorText.bottomAnchor.constraint(equalTo: facebookButton.topAnchor, constant: -30).isActive = true
-        separatorText.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        separatorText.snp.makeConstraints { make in
+            make.bottom.equalTo(facebookButton.snp.top).offset(-30)
+            make.centerX.equalToSuperview()
+        }
 
-        separatorLineLeft.centerYAnchor.constraint(equalTo: separatorText.centerYAnchor, constant: 0).isActive = true
-        separatorLineLeft.rightAnchor.constraint(equalTo: separatorText.leftAnchor, constant: -20).isActive = true
-        separatorLineLeft.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        separatorLineLeft.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        separatorLineLeft.snp.makeConstraints { make in
+            make.centerY.equalTo(separatorText.snp.centerY)
+            make.right.equalTo(separatorText.snp.left).offset(-20)
+            make.width.equalTo(80)
+            make.height.equalTo(1)
+        }
 
-        separatorLineRight.centerYAnchor.constraint(equalTo: separatorText.centerYAnchor, constant: 0).isActive = true
-        separatorLineRight.leftAnchor.constraint(equalTo: separatorText.rightAnchor, constant: 20).isActive = true
-        separatorLineRight.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        separatorLineRight.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        separatorLineRight.snp.makeConstraints { make in
+            make.centerY.equalTo(separatorText.snp.centerY)
+            make.left.equalTo(separatorText.snp.right).offset(20)
+            make.width.equalTo(80)
+            make.height.equalTo(1)
+        }
         
-        facebookButton.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -50).isActive = true
-        facebookButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -85).isActive = true
-        facebookButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 150).isActive = true
-        facebookButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        facebookButton.snp.makeConstraints { make in
+            make.bottom.equalTo(stackView.snp.top).offset(-50)
+            make.centerX.equalToSuperview().offset(-85)
+            make.width.greaterThanOrEqualTo(150)
+            make.height.equalTo(40)
+        }
         
-        twitterButton.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -50).isActive = true
-        twitterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 85).isActive = true
-        twitterButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 150).isActive = true
-        twitterButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50).isActive = true
-        stackView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 20).isActive = true
-        stackView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -20).isActive = true
+        twitterButton.snp.makeConstraints { make in
+            make.bottom.equalTo(stackView.snp.top).offset(-50)
+            make.centerX.equalToSuperview().offset(85)
+            make.width.greaterThanOrEqualTo(150)
+            make.height.equalTo(40)
+        }
+
+        stackView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-50)
+            make.leading.greaterThanOrEqualToSuperview().offset(20)
+            make.trailing.lessThanOrEqualToSuperview().offset(-20)
+        }
     }
     
     //MARK: - Actions

@@ -1,4 +1,5 @@
 import UIKit
+import SnapKit
 
 extension UIButton {
     func setLeftIcon(_ image: UIImage, padding: CGFloat) {
@@ -10,22 +11,19 @@ extension UIButton {
         iconAndTitleContainerView.translatesAutoresizingMaskIntoConstraints = false
         
         iconAndTitleContainerView.addSubview(leftIconView)
-        leftIconView.translatesAutoresizingMaskIntoConstraints = false
+        iconAndTitleContainerView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
         
-        iconAndTitleContainerView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        iconAndTitleContainerView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        iconAndTitleContainerView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        iconAndTitleContainerView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        leftIconView.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(10 + padding)
+            make.centerY.equalToSuperview()
+            make.width.height.equalTo(20)
+        }
         
-        leftIconView.leadingAnchor.constraint(equalTo: iconAndTitleContainerView.leadingAnchor, constant: 10 + padding).isActive = true
-        leftIconView.centerYAnchor.constraint(equalTo: iconAndTitleContainerView.centerYAnchor).isActive = true
-        leftIconView.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        leftIconView.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        
-        if let titleLabel = self.titleLabel {
-            titleLabel.translatesAutoresizingMaskIntoConstraints = false
-            titleLabel.leadingAnchor.constraint(equalTo: leftIconView.trailingAnchor, constant: padding).isActive = true
-            titleLabel.centerYAnchor.constraint(equalTo: iconAndTitleContainerView.centerYAnchor).isActive = true
+        self.titleLabel?.snp.makeConstraints { make in
+            make.left.equalTo(leftIconView.snp.right).offset(padding)
+            make.centerY.equalToSuperview()
         }
     }
 }

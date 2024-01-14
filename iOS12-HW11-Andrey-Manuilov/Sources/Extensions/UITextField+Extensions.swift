@@ -1,4 +1,5 @@
 import UIKit
+import SnapKit
 
 extension UITextField {
     
@@ -25,12 +26,15 @@ extension UITextField {
 
         iconContainerView.addSubview(rightIconView)
         
-        iconContainerView.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        iconContainerView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        iconContainerView.snp.makeConstraints { make in
+            make.width.equalTo(50)
+            make.height.equalTo(30)
+        }
         
-        rightIconView.centerYAnchor.constraint(equalTo: iconContainerView.centerYAnchor).isActive = true
-        rightIconView.trailingAnchor.constraint(equalTo: iconContainerView.trailingAnchor, constant: -15).isActive = true
-        rightIconView.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        rightIconView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        rightIconView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview().inset(15)
+            make.width.height.equalTo(30)
+        }
     }
 }
