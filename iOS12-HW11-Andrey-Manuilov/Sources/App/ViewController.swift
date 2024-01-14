@@ -188,6 +188,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
 
     private func setupHierarchy() {
+        textFieldUsername.delegate = self
+        textFieldUsername.addTarget(self, action: #selector(onTextFieldEdit(_:)), for: .editingChanged)
+
+        textFieldPassword.delegate = self
+        textFieldPassword.addTarget(self, action: #selector(onTextFieldEdit(_:)), for: .editingChanged)
+        
         view.addSubview(labelLogin)
         view.addSubview(textFieldUsername)
         view.addSubview(textFieldPassword)
@@ -202,7 +208,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func setupLayout() {
-//        top part positioning
+        //top part positioning
         labelLogin.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80).isActive = true
         labelLogin.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
@@ -227,7 +233,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         forgotPasswordLink.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 30).isActive = true
         forgotPasswordLink.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 
-//        bottom part positioning
+        //bottom part positioning
         separatorText.bottomAnchor.constraint(equalTo: facebookButton.topAnchor, constant: -30).isActive = true
         separatorText.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 
@@ -259,5 +265,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: - Actions
     
-    
+    @objc func onTextFieldEdit(_ sender: UITextField) {
+        if let text = sender.text, !text.isEmpty {
+            if let checkmarkImage = UIImage(systemName: "checkmark.circle.fill")?.withTintColor(.systemGreen, renderingMode: .alwaysOriginal) {
+                sender.setRightIcon(checkmarkImage)
+            }
+        } else {
+            sender.rightView = nil
+            sender.rightViewMode = .never
+        }
+    }
 }
