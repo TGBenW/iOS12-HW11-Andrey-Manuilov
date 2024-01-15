@@ -1,6 +1,6 @@
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController {
     
     //MARK: - Outlets
 
@@ -14,11 +14,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
         return label
     }()
 
-    private lazy var textFieldUsername: UITextField = {
+    lazy var textFieldUsername: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = UIColor.white
-        textField.placeholder = "Username"
+        textField.attributedPlaceholder = NSAttributedString(string: "Username", attributes: [.foregroundColor: UIColor.lightGray])
         textField.setLeftIcon(UIImage(systemName: "person")!)
+        textField.textColor = UIColor.gray
+        textField.keyboardType = .asciiCapable
+        textField.autocorrectionType = .no
+        
         textField.layer.cornerRadius = 30
         textField.layer.shadowColor = UIColor.black.cgColor
         textField.layer.shadowOpacity = 0.2
@@ -27,15 +31,21 @@ class ViewController: UIViewController, UITextFieldDelegate {
         textField.layer.shouldRasterize = true
         textField.layer.rasterizationScale = UIScreen.main.scale
         textField.translatesAutoresizingMaskIntoConstraints = false
+        
+        textField.delegate = self
         return textField
     }()
 
-    private lazy var textFieldPassword: UITextField = {
+    lazy var textFieldPassword: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = UIColor.white
-        textField.placeholder = "Password"
+        textField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [.foregroundColor: UIColor.lightGray])
         textField.setLeftIcon(UIImage(systemName: "lock")!)
+        textField.textColor = UIColor.gray
         textField.isSecureTextEntry = true
+        textField.keyboardType = .asciiCapable
+        textField.autocorrectionType = .no
+        
         textField.layer.cornerRadius = 30
         textField.layer.shadowColor = UIColor.black.cgColor
         textField.layer.shadowOpacity = 0.2
@@ -44,6 +54,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         textField.layer.shouldRasterize = true
         textField.layer.rasterizationScale = UIScreen.main.scale
         textField.translatesAutoresizingMaskIntoConstraints = false
+        
+        textField.delegate = self
         return textField
     }()
 
@@ -53,6 +65,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         button.backgroundColor = loginButtonColor
         button.setTitle("Login", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
+        
         button.layer.cornerRadius = 25
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.2
@@ -87,14 +100,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     private lazy var separatorLineLeft: UITextField = {
         let textField = UITextField()
-        textField.backgroundColor = UIColor.systemGray5
+        textField.backgroundColor = UIColor.gray
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
 
     private lazy var separatorLineRight: UITextField = {
         let textField = UITextField()
-        textField.backgroundColor = UIColor.systemGray5
+        textField.backgroundColor = UIColor.gray
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -107,6 +120,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         button.setLeftIcon(UIImage(named: "facebook")!, padding: 10)
+        
         button.layer.cornerRadius = 20
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.2
@@ -126,6 +140,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         button.setLeftIcon(UIImage(named: "twitter")!, padding: 10)
+        
         button.layer.cornerRadius = 20
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.2
@@ -188,12 +203,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
 
     private func setupHierarchy() {
-        textFieldUsername.delegate = self
-        textFieldUsername.addTarget(self, action: #selector(onTextFieldEdit(_:)), for: .editingChanged)
-
-        textFieldPassword.delegate = self
-        textFieldPassword.addTarget(self, action: #selector(onTextFieldEdit(_:)), for: .editingChanged)
-        
         view.addSubview(labelLogin)
         view.addSubview(textFieldUsername)
         view.addSubview(textFieldPassword)
@@ -285,15 +294,4 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: - Actions
-    
-    @objc func onTextFieldEdit(_ sender: UITextField) {
-        if let text = sender.text, !text.isEmpty {
-            if let checkmarkImage = UIImage(systemName: "checkmark.circle.fill")?.withTintColor(.systemGreen, renderingMode: .alwaysOriginal) {
-                sender.setRightIcon(checkmarkImage)
-            }
-        } else {
-            sender.rightView = nil
-            sender.rightViewMode = .never
-        }
-    }
 }
